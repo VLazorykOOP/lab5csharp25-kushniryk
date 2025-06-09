@@ -1,58 +1,86 @@
-﻿// See https://aka.ms/new-console-template for more information
-/// <summary>
-///  Top-level statements 
-///  Код програми (оператори)  вищого рівня
-/// </summary>
-///
-Console.WriteLine("Lab5 C# ");
-AnyFunc();
+﻿using LR5;
 
-/// <summary>
-/// 
-///  Top-level statements must precede namespace and type declarations.
-/// At the top-level methods/functions can be defined and used
-/// На верхньому рівні можна визначати та використовувати методи/функції
-/// </summary>
-void AnyFunc()
+Console.OutputEncoding = System.Text.Encoding.Unicode;
+Console.InputEncoding = System.Text.Encoding.Unicode;
+
+void Task1()
 {
-    Console.WriteLine(" Some function in top-level");
+    Exam exam = new Exam("Mathematics", 100, "2024-05-15");
+    GraduationExam graduationExam = new GraduationExam("Physics", 100, "2024-06-15");
+    Trial trial = new Trial("Chemistry", 50, "Practical");
+
+    exam.ConductTest();
+    graduationExam.ConductTest();
+    trial.ConductTest();
 }
-Console.WriteLine("Problems 1 ");
-AnyFunc();
-//  приклад класів
-UserClass cl = new UserClass();
-cl.Name = " UserClass top-level ";
-User.UserClass cl2 = new();
-cl2.Name = " UserClass namespace User ";
-
-
-
-
-/// <summary>
-/// 
-/// Top-level statements must precede namespace and type declarations.
-/// Оператори верхнього рівня мають передувати оголошенням простору імен і типу.
-/// Створення класу(ів) або оголошенням простору імен є закіченням  іструкцій верхнього рівня
-/// 
-/// </summary>
-
-namespace User
+void Task2()
 {
-    class UserClass
+    List<Test> tests = new List<Test>
     {
-        public string Name { get; set; }
-       public  UserClass()
+        new Exam("Mathematics", 100, "2024-05-15"),
+        new GraduationExam("Physics", 100, "2024-06-15"),
+        new Trial("Chemistry", 50, "Practical")
+    };
+
+    Console.WriteLine();
+
+    foreach (var test in tests)
+    {
+        test.ConductTest();
+    }
+}
+
+void Task3()
+{
+    Product[] products = new Product[]
         {
-            Name = "NoName";
-        }
-        UserClass(string n)
+            new Toy("М'яч", 150.50, "ToyCorp", "Гума", 3),
+            new Book("Програмування C#", 350.75, "Джон Доу", "TechBooks", 16),
+            new SportsEquipment("Гантелі", 450.00, "SportMaster", 14),
+            new Toy("Лялька", 250.25, "PlayFun", "Пластик", 4),
+            new Book("Фізика", 280.00, "Джейн Сміт", "SciencePub", 12)
+        };
+
+    Console.WriteLine("Всі товари в базі:");
+    Console.WriteLine();
+    foreach (Product product in products)
+    {
+        product.DisplayInfo();
+    }
+
+    Console.WriteLine("\nПошук товарів за типом (toy, book, sports)");
+    Console.Write("Введіть тип товару: ");
+    string searchType = Console.ReadLine();
+
+    Console.WriteLine($"\nЗнайдені товари типу '{searchType}':");
+    Console.WriteLine();
+    bool found = false;
+
+    foreach (Product product in products)
+    {
+        if (product.IsType(searchType))
         {
-            Name = n;
+            product.DisplayInfo();
+            found = true;
         }
+    }
+    if (!found)
+    {
+        Console.WriteLine("Товарів цього типу не знайдено!");
     }
 
 }
-class UserClass
+
+void Task4()
 {
-    public string Name { get; set; }
+    Console.WriteLine("Структура.");
+    Students.Struct();
+    
+    Console.WriteLine("\nКортеж.");
+    Students.Tuple();
+    
+    Console.WriteLine("\nЗапис.");
+    Students.Record();
 }
+
+Task4();
